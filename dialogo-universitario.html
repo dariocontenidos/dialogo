@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diálogo Universitario</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #141720;
+    --gold: #c9a84c;
+    --gold-light: #e2c87a;
+    --text: #e8e4dc;
+    --muted: #6b6e78;
+    --line: rgba(201,168,76,0.18);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+  }
+
+  /* Subtle grain overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 640px;
+  }
+
+  header {
+    margin-bottom: 3.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 6vw, 2.8rem);
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+    color: var(--text);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .divider {
+    width: 2.5rem;
+    height: 1px;
+    background: var(--gold);
+    margin-top: 1.2rem;
+    opacity: 0.6;
+  }
+
+  .links-list {
+    list-style: none;
+  }
+
+  .links-list li {
+    animation: fadeUp 0.8s ease both;
+  }
+  .links-list li:nth-child(1) { animation-delay: 0.1s; }
+  .links-list li:nth-child(2) { animation-delay: 0.2s; }
+  .links-list li:nth-child(3) { animation-delay: 0.3s; }
+  .links-list li:nth-child(4) { animation-delay: 0.4s; }
+  .links-list li:nth-child(5) { animation-delay: 0.5s; }
+
+  .link-item {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .link-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.04), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+  }
+
+  .link-item:hover::before {
+    transform: translateX(100%);
+  }
+
+  .link-item:hover {
+    padding-left: 0.5rem;
+  }
+
+  .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--gold);
+    opacity: 0.7;
+    min-width: 1.5rem;
+    transition: opacity 0.3s;
+  }
+
+  .link-item:hover .num {
+    opacity: 1;
+  }
+
+  .link-text {
+    flex: 1;
+  }
+
+  .link-title {
+    font-size: 0.92rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    transition: color 0.3s;
+    line-height: 1.4;
+  }
+
+  .link-item:hover .link-title {
+    color: var(--gold-light);
+  }
+
+  .arrow {
+    color: var(--gold);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+  }
+
+  .link-item:hover .arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  footer {
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: fadeUp 0.8s 0.7s ease both;
+    opacity: 0.45;
+  }
+
+  footer span {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  footer .dot { color: var(--gold); font-size: 0.5rem; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <p class="eyebrow">FeDUA · Superfechas</p>
+    <h1>Diálogo<br><em>Universitario</em></h1>
+    <div class="divider"></div>
+  </header>
+
+  <ul class="links-list">
+
+    <li>
+      <a class="link-item" href="https://dialogo1-75ndj9o.gamma.site/" target="_blank" rel="noopener">
+        <span class="num">01</span>
+        <span class="link-text">
+          <span class="link-title">FeDUA / Superfechas: De Federación a Marca Deportiva</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="link-item" href="https://dialogo2-tve9uy0.gamma.site/" target="_blank" rel="noopener">
+        <span class="num">02</span>
+        <span class="link-text">
+          <span class="link-title">Los Capitanes</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="link-item" href="https://mision-fisu-s95wbgv.gamma.site/" target="_blank" rel="noopener">
+        <span class="num">03</span>
+        <span class="link-text">
+          <span class="link-title">Misión FISU — Compiten ellos. Bancamos todos.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="link-item" href="https://gamma.app/docs/El-Estudiante-Deportista--t0dq0623vzruhcc?mode=doc" target="_blank" rel="noopener">
+        <span class="num">04</span>
+        <span class="link-text">
+          <span class="link-title">El Estudiante Deportista</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="link-item" href="https://patrocinio-sf-z9t1qpi.gamma.site/" target="_blank" rel="noopener">
+        <span class="num">05</span>
+        <span class="link-text">
+          <span class="link-title">Superfechas FeDUA — Patrocinio</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+  </ul>
+
+  <footer>
+    <span>Deporte Universitario Argentino</span>
+    <span class="dot">◆</span>
+    <span>2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
